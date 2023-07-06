@@ -6,4 +6,31 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Entities\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Interfaces\Repositories\" />
+    <None Remove="Interfaces\Services\" />
+    <None Remove="Implementations\" />
+    <None Remove="Implementations\Services\" />
+    <None Remove="Implementations\Notifications\" />
+    <None Remove="Validations\" />
+    <None Remove="Validations\Supplier\" />
+    <None Remove="Validations\Supplier\Documents\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\Repositories\" />
+    <Folder Include="Interfaces\Services\" />
+    <Folder Include="Implementations\" />
+    <Folder Include="Implementations\Services\" />
+    <Folder Include="Implementations\Notifications\" />
+    <Folder Include="Validations\" />
+    <Folder Include="Validations\Supplier\" />
+    <Folder Include="Validations\Supplier\Documents\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.6.0" />
+  </ItemGroup>
 </Project>
