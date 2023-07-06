@@ -9,7 +9,8 @@ namespace ClallangeAutoGlass.Business.Entities
 
         }
 
-        public Product(string description,
+        public Product(
+            string description,
             bool status,
             DateTime fabricationDate,
             DateTime validationDate)

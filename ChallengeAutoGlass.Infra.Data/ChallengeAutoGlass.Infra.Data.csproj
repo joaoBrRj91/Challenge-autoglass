@@ -9,4 +9,19 @@
   <ItemGroup>
     <ProjectReference Include="..\ClallangeAutoGlass.Business\ClallangeAutoGlass.Business.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Context\" />
+    <None Remove="Repositories\" />
+    <None Remove="Mappings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Context\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Mappings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.8" />
+  </ItemGroup>
 </Project>
