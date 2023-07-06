@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/ChallengeAutoGlass.Api.props" />
+</Project>
