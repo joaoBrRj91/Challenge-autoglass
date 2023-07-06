@@ -17,6 +17,7 @@
     <None Remove="Validations\" />
     <None Remove="Validations\Supplier\" />
     <None Remove="Validations\Supplier\Documents\" />
+    <None Remove="Interfaces\Notifications\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
@@ -29,6 +30,7 @@
     <Folder Include="Validations\" />
     <Folder Include="Validations\Supplier\" />
     <Folder Include="Validations\Supplier\Documents\" />
+    <Folder Include="Interfaces\Notifications\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.6.0" />
