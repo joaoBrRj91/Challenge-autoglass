@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChallengeAutoGlass.Application\ChallengeAutoGlass.Application.csproj">
+    <ProjectReference Include="..\ChallengeAutoGlass.IoC\ChallengeAutoGlass.IoC.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

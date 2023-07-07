@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChallengeAutoGlass.Infra.Data\ChallengeAutoGlass.Infra.Data.csproj" />
+    <ProjectReference Include="..\ClallangeAutoGlass.Business\ClallangeAutoGlass.Business.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="AppServices\" />
+    <None Remove="Dtos\" />
+    <None Remove="Configurations\" />
+    <None Remove="AppServices\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AppServices\" />
+    <Folder Include="Dtos\" />
+    <Folder Include="Configurations\" />
+    <Folder Include="AppServices\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 </Project>
