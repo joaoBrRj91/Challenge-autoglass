@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ChallengeAutoGlass.Api.Controllers;
 
@@ -12,10 +13,12 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IMapper mapper;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IMapper mapper)
     {
         _logger = logger;
+        this.mapper = mapper;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
