@@ -8,7 +8,7 @@ namespace ClallangeAutoGlass.Business.Interfaces.Services
 	{
         Task<IEnumerable<Product>> GetAll(Pagination? pagination = null);
         Task<bool> Add(Product product);
-        Task<bool> Update(Product product);
+        Task<bool> Update(string sku, Product product);
         Task<bool> Remove(string sku);
     }
 }

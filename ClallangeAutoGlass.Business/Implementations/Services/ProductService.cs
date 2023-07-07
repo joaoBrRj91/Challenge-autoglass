@@ -26,7 +26,7 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
 
         public async Task<IEnumerable<Product>> GetAll(Pagination? pagination = null)
         {
-            var products = await productRepository.GetAll(pagination);
+            var products = await productRepository.GetAllWithSupplier(pagination);
 
             return products;
         }
@@ -51,11 +51,10 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
             return true;
         }
 
-        public async Task<bool> Update(Product product)
+        public async Task<bool> Update(string sku, Product product)
         {
-            if (!RunValidation(new ProductValidation(), product)) return false;
 
-            var productBySku = await productRepository.GetBySku(product.Sku);
+            var productBySku = await productRepository.GetBySku(sku);
 
             if (productBySku is null)
             {
@@ -64,6 +63,10 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
             }
 
             productBySku.Description = product.Description;
+
+            if (!RunValidation(new ProductValidation(), productBySku)) return false;
+
+            await productRepository.Update(productBySku);
             return true;
         }
 

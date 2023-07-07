@@ -26,8 +26,9 @@ namespace ChallengeAutoGlass.Api.Controllers
             => await productAppService.Add(addProductDto);
 
         [HttpPut]
-        public async Task<BaseResponse> Update(UpdateProductDto UpdateProductDto)
-           => await productAppService.Update(UpdateProductDto);
+        [Route("{sku}")]
+        public async Task<BaseResponse> Update([FromRoute] string sku, UpdateProductDto UpdateProductDto)
+           => await productAppService.Update(sku, UpdateProductDto);
 
         [HttpPatch]
         [Route("disable/{sku}")]

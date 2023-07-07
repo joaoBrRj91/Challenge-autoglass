@@ -56,11 +56,11 @@ namespace ChallengeAutoGlass.Application.AppServices
             };
         }
 
-        public async Task<BaseResponse> Update(UpdateSupplierDto supplier)
+        public async Task<BaseResponse> Update(string document, UpdateSupplierDto supplier)
         {
             var supplierEntity = mapper.Map<Supplier>(supplier);
 
-            var isSuccessProcess = await supplierService.Update(supplierEntity);
+            var isSuccessProcess = await supplierService.Update(document,supplierEntity);
 
             return new BaseResponse
             {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.RegularExpressions;
+
 namespace ClallangeAutoGlass.Business.Validations.Documents
 {
 	public static class Utils
@@ -23,7 +25,10 @@ namespace ClallangeAutoGlass.Business.Validations.Documents
 
         public static string GeneratedCodByInputValue(string inputValue)
         {
-            return $"{inputValue.Trim().ToUpper()}-{new Random().Next()}";
+            var generetedCod = $"{inputValue.Trim().ToUpper()}-{new Random().Next()}";
+            generetedCod = Regex.Replace(generetedCod, @"\s", "");
+
+            return generetedCod;
         }
     }
 }

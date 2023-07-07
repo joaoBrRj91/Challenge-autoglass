@@ -9,7 +9,7 @@ namespace ChallengeAutoGlass.Application.AppServices.Interfaces
 	{
         Task<BaseResponse> GetAll(Pagination? pagination = null);
         Task<BaseResponse> Add(AddSupplierDto supplier);
-        Task<BaseResponse> Update(UpdateSupplierDto supplier);
+        Task<BaseResponse> Update(string document, UpdateSupplierDto supplier);
         Task<BaseResponse> Remove(string document);
     }
 }

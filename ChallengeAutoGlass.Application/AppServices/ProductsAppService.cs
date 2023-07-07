@@ -19,7 +19,7 @@ namespace ChallengeAutoGlass.Application.AppServices
 
         public ProductsAppService(IProductService productService,
             INotificator notificator, IMapper mapper)
-		{
+        {
             this.productService = productService;
             this.notificator = notificator;
             this.mapper = mapper;
@@ -55,11 +55,11 @@ namespace ChallengeAutoGlass.Application.AppServices
             };
         }
 
-        public async Task<BaseResponse> Update(UpdateProductDto product)
+        public async Task<BaseResponse> Update(string sku, UpdateProductDto product)
         {
             var productEntity = mapper.Map<Product>(product);
 
-            var isSuccessProcess = await productService.Update(productEntity);
+            var isSuccessProcess = await productService.Update(sku, productEntity);
 
             return new BaseResponse
             {

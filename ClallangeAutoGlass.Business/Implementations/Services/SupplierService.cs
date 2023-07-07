@@ -25,7 +25,7 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
 
         public async Task<IEnumerable<Supplier>> GetAll(Pagination? pagination = null)
         {
-            var suppliers = await supplierRepository.GetAll(pagination);
+            var suppliers = await supplierRepository.GetAllWithProducts(pagination);
 
             return suppliers;
         }
@@ -48,8 +48,10 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
             return true;
         }
 
-        public async Task<bool> Update(Supplier supplier)
+        public async Task<bool> Update(string document, Supplier supplier)
         {
+            supplier.Document = document;
+
             if (!RunValidation(new SupplierValidation(), supplier)) return false;
 
             var supplierByDocument = await supplierRepository.GetByDocument(supplier.Document)!;

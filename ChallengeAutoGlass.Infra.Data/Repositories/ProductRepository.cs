@@ -1,16 +1,31 @@
 ﻿using System;
 using ChallengeAutoGlass.Infra.Data.Context;
 using ClallangeAutoGlass.Business.Entities;
+using ClallangeAutoGlass.Business.Implementations.Paging;
 using ClallangeAutoGlass.Business.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChallengeAutoGlass.Infra.Data.Repositories
 {
-	public class ProductRepository : Repository<Product>, IProductRepository
-	{
-		public ProductRepository(CustomDbContext customDbContext) : base(customDbContext)
-		{
-		}
+    public class ProductRepository : Repository<Product>, IProductRepository
+    {
+        public ProductRepository(CustomDbContext customDbContext) : base(customDbContext)
+        {
+        }
+
+        public async Task<List<Product>> GetAllWithSupplier(Pagination? pagination = null)
+        {
+            var queryable = CustomDbContext.Products.AsNoTracking();
+
+            if (pagination is not null)
+                queryable.Skip(pagination.PageSize * (pagination.PageNumber - 1)).Take(pagination.PageSize);
+
+            return await queryable
+                .Where(p => p.Status == true)
+                .Include(s => s.Supplier)
+                .ToListAsync();
+
+        }
 
         public async Task<Product> GetBySku(string sku)
         {
@@ -27,10 +42,10 @@ namespace ChallengeAutoGlass.Infra.Data.Repositories
         }
 
         public async Task<bool> IsHaveProductsSupplier(int supplierId)
-			=> await CustomDbContext.Products.AsNoTracking().AnyAsync(s => s.SupplierId == supplierId);
+            => await CustomDbContext.Products.AsNoTracking().AnyAsync(s => s.SupplierId == supplierId);
 
 
-       
+
     }
 }
 
