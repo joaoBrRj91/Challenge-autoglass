@@ -4,18 +4,22 @@ using ClallangeAutoGlass.Business.Implementations.Paging;
 using ClallangeAutoGlass.Business.Interfaces.Notifications;
 using ClallangeAutoGlass.Business.Interfaces.Repositories;
 using ClallangeAutoGlass.Business.Interfaces.Services;
+using ClallangeAutoGlass.Business.Validations;
 
 namespace ClallangeAutoGlass.Business.Implementations.Services
 {
 	public class SupplierService : BaseService, ISupplierService
     {
         private readonly ISupplierRepository supplierRepository;
+        private readonly IProductRepository productRepository;
         private readonly INotificator notificator;
 
         public SupplierService(ISupplierRepository supplierRepository,
+            IProductRepository productRepository,
             INotificator notificator) : base(notificator)
 		{
             this.supplierRepository = supplierRepository;
+            this.productRepository = productRepository;
             this.notificator = notificator;
         }
 
@@ -26,24 +30,58 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
             return suppliers;
         }
 
-        public Task Add(Supplier product)
+        public async Task<bool> Add(Supplier supplier)
         {
-            throw new NotImplementedException();
+            if (!RunValidation(new SupplierValidation(), supplier)) return false;
+
+            var documentExists = await supplierRepository.IsHaveSupplierWithDocument(supplier.Document);
+
+            if(documentExists)
+            {
+                Notify("This document already exists.");
+                return false;
+            }
+
+            await supplierRepository.Add(supplier);
+
+            return true;
         }
 
-        public Task Update(Supplier product)
+        public async Task<bool> Update(Supplier supplier)
         {
-            throw new NotImplementedException();
+            if (!RunValidation(new SupplierValidation(), supplier)) return false;
+
+            var supplierByDocument = await supplierRepository.GetByDocument(supplier.Document)!;
+
+            if(supplierByDocument is null)
+            {
+                Notify("This supplier with this document dont exist.");
+                return false;
+            }
+
+
+            await supplierRepository.Update(supplier);
+            return true;
+            
         }
 
-        public Task Remove(int id)
+        public async Task<bool> Remove(int id)
         {
-            throw new NotImplementedException();
+            var supplierHaveProducts =  await productRepository.IsHaveProductsSupplier(supplierId: id);
+
+            if(supplierHaveProducts)
+            {
+                Notify("The supplier have products registered");
+                return false;
+            }
+
+            await supplierRepository.Remove(id);
+            return true;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            supplierRepository?.Dispose();
         }
 
     }
