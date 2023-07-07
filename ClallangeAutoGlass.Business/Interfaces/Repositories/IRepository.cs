@@ -8,7 +8,7 @@ namespace ClallangeAutoGlass.Business.Interfaces.Repositories
         Task Add(TEntity entity);
         Task<List<TEntity>> GetAll(Pagination? pagination = null);
         Task Update(TEntity entity);
-        Task Remove(Guid id);
+        Task Remove(int id);
         Task<int> SaveChanges();
     }
 }
