@@ -42,6 +42,7 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
                 return false;
             }
 
+            supplier.Status = true;
             await supplierRepository.Add(supplier);
 
             return true;
@@ -59,15 +60,24 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
                 return false;
             }
 
+            supplierByDocument.Description = supplier.Description;
 
-            await supplierRepository.Update(supplier);
+            await supplierRepository.Update(supplierByDocument);
             return true;
             
         }
 
-        public async Task<bool> Remove(int id)
+        public async Task<bool> Remove(string document)
         {
-            var supplierHaveProducts =  await productRepository.IsHaveProductsSupplier(supplierId: id);
+            var supplierByDocument = await supplierRepository.GetByDocument(document)!;
+
+            if (supplierByDocument is null)
+            {
+                Notify("This supplier with this document dont exist.");
+                return false;
+            }
+
+            var supplierHaveProducts =  await productRepository.IsHaveProductsSupplier(supplierId: supplierByDocument.Id);
 
             if(supplierHaveProducts)
             {
@@ -75,7 +85,10 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
                 return false;
             }
 
-            await supplierRepository.Remove(id);
+
+            supplierByDocument.Status = false;
+
+            await supplierRepository.Update(supplierByDocument);
             return true;
         }
 

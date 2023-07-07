@@ -5,10 +5,10 @@ namespace ClallangeAutoGlass.Business.Interfaces.Repositories
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : BaseEntity
     {
-        Task Add(TEntity entity);
         Task<List<TEntity>> GetAll(Pagination? pagination = null);
+        Task<TEntity> GetById(int id);
+        Task Add(TEntity entity);
         Task Update(TEntity entity);
-        Task Remove(int id);
         Task<int> SaveChanges();
     }
 }

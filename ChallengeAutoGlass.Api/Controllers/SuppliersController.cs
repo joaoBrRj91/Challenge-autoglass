@@ -24,6 +24,15 @@ namespace ChallengeAutoGlass.Api.Controllers
         [HttpPost]
         public async Task<BaseResponse> Create(AddSupplierDto addSupplierDto)
             => await supplierAppService.Add(addSupplierDto);
+
+        [HttpPut]
+        public async Task<BaseResponse> Update(UpdateSupplierDto updateSupplierDto)
+           => await supplierAppService.Update(updateSupplierDto);
+
+        [HttpPatch]
+        [Route("disable/{document}")]
+        public async Task<BaseResponse> RemoveLogical([FromRoute]string document)
+           => await supplierAppService.Remove(document);
     }
 }
 

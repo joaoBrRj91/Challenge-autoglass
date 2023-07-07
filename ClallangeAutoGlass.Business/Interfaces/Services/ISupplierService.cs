@@ -9,7 +9,7 @@ namespace ClallangeAutoGlass.Business.Interfaces.Services
         Task<IEnumerable<Supplier>> GetAll(Pagination? pagination = null);
         Task<bool> Add(Supplier supplier);
         Task<bool> Update(Supplier supplier);
-        Task<bool> Remove(int id);
+        Task<bool> Remove(string document);
     }
 }
 

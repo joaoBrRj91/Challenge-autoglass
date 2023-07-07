@@ -56,20 +56,7 @@ namespace ChallengeAutoGlass.Application.AppServices
             };
         }
 
-        public async Task<BaseResponse> Remove(int id)
-        {
-            var isSuccessProcess = await supplierService.Remove(id);
-
-            return new BaseResponse
-            {
-                IsSuccess = isSuccessProcess,
-                StatusCode = !isSuccessProcess ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
-                Errors = notificator.GetNotifications().Select(m => m.Message).ToList()
-
-            };
-        }
-
-        public async Task<BaseResponse> Update(SuppliersDto supplier)
+        public async Task<BaseResponse> Update(UpdateSupplierDto supplier)
         {
             var supplierEntity = mapper.Map<Supplier>(supplier);
 
@@ -84,6 +71,20 @@ namespace ChallengeAutoGlass.Application.AppServices
 
             };
         }
+
+        public async Task<BaseResponse> Remove(string document)
+        {
+            var isSuccessProcess = await supplierService.Remove(document);
+
+            return new BaseResponse
+            {
+                IsSuccess = isSuccessProcess,
+                StatusCode = !isSuccessProcess ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
+                Errors = notificator.GetNotifications().Select(m => m.Message).ToList()
+
+            };
+        }
+
     }
 }
 

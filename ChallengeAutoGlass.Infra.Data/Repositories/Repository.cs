@@ -31,6 +31,13 @@ namespace ChallengeAutoGlass.Infra.Data.Repositories
 
         }
 
+        public async Task<TEntity> GetById(int id)
+        {
+            var entity = await DbSet.FindAsync(id);
+
+            return entity!;
+        }
+
 
         public async Task Add(TEntity entity)
         {
@@ -45,12 +52,6 @@ namespace ChallengeAutoGlass.Infra.Data.Repositories
             await SaveChanges();
         }
 
-        public async Task Remove(int id)
-        {
-            DbSet.Remove(new TEntity { Id = id });
-            await SaveChanges();
-        }
-
         public  async Task<int> SaveChanges()
         {
             return await CustomDbContext.SaveChangesAsync();
@@ -60,7 +61,6 @@ namespace ChallengeAutoGlass.Infra.Data.Repositories
         {
             CustomDbContext?.Dispose();
         }
-
 
     }
 }

@@ -14,7 +14,7 @@ namespace ChallengeAutoGlass.Infra.Data.Repositories
 
         public async Task<Supplier>? GetByDocument(string document)
         {
-            var supplier = await CustomDbContext.Suppliers.AsNoTracking().FirstOrDefaultAsync(s => s.Document == document);
+            var supplier = await CustomDbContext.Suppliers.FirstOrDefaultAsync(s => s.Document == document);
 
             return supplier!;
         }
