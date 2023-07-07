@@ -20,6 +20,11 @@ namespace ClallangeAutoGlass.Business.Validations.Documents
         {
             return value.Length == targetLength;
         }
+
+        public static string GeneratedCodByInputValue(string inputValue)
+        {
+            return $"{inputValue.Trim().ToUpper()}-{new Random().Next()}";
+        }
     }
 }
 

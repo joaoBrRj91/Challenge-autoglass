@@ -90,11 +90,13 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
 
             await supplierRepository.Update(supplierByDocument);
             return true;
+
         }
 
         public void Dispose()
         {
             supplierRepository?.Dispose();
+            productRepository?.Dispose();
         }
 
     }

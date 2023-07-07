@@ -27,7 +27,7 @@ namespace ChallengeAutoGlass.Infra.Data.Repositories
             if (pagination is not null)
                 queryable.Skip(pagination.PageSize * (pagination.PageNumber - 1)).Take(pagination.PageSize);
 
-            return await queryable.ToListAsync();
+            return await queryable.Where(q=>q.Status == true).ToListAsync();
 
         }
 

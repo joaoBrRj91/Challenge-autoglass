@@ -4,17 +4,19 @@ namespace ClallangeAutoGlass.Business.Entities
 	public class Product : BaseEntity
     {
 
-      /* public Product(
-            string description,
-            bool status,
-            DateTime fabricationDate,
-            DateTime validationDate)
-        {
-            Description = description;
-            Status = status;
-            FabricationDate = fabricationDate;
-            ExpirationDate = validationDate;
-        }*/
+        /* public Product(
+              string description,
+              bool status,
+              DateTime fabricationDate,
+              DateTime validationDate)
+          {
+              Description = description;
+              Status = status;
+              FabricationDate = fabricationDate;
+              ExpirationDate = validationDate;
+          }*/
+
+        public string Sku { get; set; }
 
         public string Description { get; set; }
 

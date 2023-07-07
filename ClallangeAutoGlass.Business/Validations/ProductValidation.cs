@@ -8,6 +8,9 @@ namespace ClallangeAutoGlass.Business.Validations
 	{
 		public ProductValidation()
 		{
+            RuleFor(c => c.Sku)
+                .NotEmpty().WithMessage("The field {PropertyName} is required");
+
             RuleFor(c => c.Description)
                 .NotEmpty().WithMessage("The field {PropertyName} is required");
 
