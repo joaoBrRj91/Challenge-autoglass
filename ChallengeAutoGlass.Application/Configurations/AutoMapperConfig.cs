@@ -10,9 +10,14 @@ namespace ChallengeAutoGlass.Application.Configurations
     {
         public AutoMapperConfig()
         {
-            CreateMap<Supplier, SuppliersDto>().ReverseMap();
+
             CreateMap<Product, ProductsDto>().ReverseMap();
+            CreateMap<Product, AddProductDto>().ReverseMap();
+            CreateMap<Product, UpdateProductDto>().ReverseMap();
+
+            CreateMap<Supplier, SuppliersDto>().ReverseMap();
             CreateMap<Supplier, AddSupplierDto>().ReverseMap();
+            CreateMap<Supplier, UpdateSupplierDto>().ReverseMap();
 
         }
     }

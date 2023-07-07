@@ -27,7 +27,9 @@ namespace ChallengeAutoGlass.IoC.Configurations
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ISupplierAppService, SupplierAppService>();
+            services.AddScoped<IProductAppService, ProductsAppService>();
 
 
             return services;

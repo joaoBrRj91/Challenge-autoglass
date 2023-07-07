@@ -12,12 +12,15 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
 	public class ProductService : BaseService, IProductService
     {
         private readonly IProductRepository productRepository;
+        private readonly ISupplierRepository supplierRepository;
         private readonly INotificator notificator;
 
         public ProductService(IProductRepository productRepository,
+            ISupplierRepository supplierRepository,
             INotificator notificator) : base(notificator)
 		{
             this.productRepository = productRepository;
+            this.supplierRepository = supplierRepository;
             this.notificator = notificator;
         }
 
@@ -30,7 +33,17 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
 
         public async Task<bool> Add(Product product)
         {
+            var supplierByDocument = await supplierRepository.GetByDocument(product.Supplier.Document)!;
+
+            if(supplierByDocument is null)
+            {
+                Notify("This supplier with this document dont exist.");
+                return false;
+            }
+
             product.Sku = Utils.GeneratedCodByInputValue(product.Description);
+            product.Status = true;
+            product.SupplierId = supplierByDocument.Id;
 
             if (!RunValidation(new ProductValidation(), product)) return false;
 

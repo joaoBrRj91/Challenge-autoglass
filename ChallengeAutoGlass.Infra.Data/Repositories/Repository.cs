@@ -41,6 +41,8 @@ namespace ChallengeAutoGlass.Infra.Data.Repositories
 
         public async Task Add(TEntity entity)
         {
+
+            DbSet.Entry(entity).State = EntityState.Modified;
             DbSet.Add(entity);
             await SaveChanges();
         }
