@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ChallengeAutoGlass.Application.Dtos
 {
-	public class ProductDto
+	public class ResultProductDto
 	{
 
         public string? Sku { get; set; }
@@ -14,7 +14,7 @@ namespace ChallengeAutoGlass.Application.Dtos
 
         public DateTime ExpirationDate { get; set; }
 
-        public SupplierDto? Supplier { get; set; } 
+        public SupplierGetDto? Supplier { get; set; } 
 
     }
 }

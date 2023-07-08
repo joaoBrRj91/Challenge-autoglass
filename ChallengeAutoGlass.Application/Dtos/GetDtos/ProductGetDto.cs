@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ChallengeAutoGlass.Application.Dtos
 {
-	public class ProductGetAllDto
+	public class ProductGetDto
 	{
         public string Sku { get; set; }
 

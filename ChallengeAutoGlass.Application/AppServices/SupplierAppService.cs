@@ -29,7 +29,7 @@ namespace ChallengeAutoGlass.Application.AppServices
         {
             var suppliers = await supplierService.GetAll(pagination);
 
-            var suppliersDto = mapper.Map<IEnumerable<SupplierDto>>(suppliers);
+            var suppliersDto = mapper.Map<IEnumerable<ResultSupplierDto>>(suppliers);
 
             return CreateResponseResultByStatusCode(HttpStatusCode.OK, suppliersDto);
 
