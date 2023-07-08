@@ -11,14 +11,14 @@ using ClallangeAutoGlass.Business.Interfaces.Services;
 
 namespace ChallengeAutoGlass.Application.AppServices
 {
-    public class SupplierAppService : ISupplierAppService
+    public class SupplierAppService : BaseAppService,  ISupplierAppService
     {
         private readonly ISupplierService supplierService;
         private readonly INotificator notificator;
         private readonly IMapper mapper;
 
         public SupplierAppService(ISupplierService supplierService,
-            INotificator notificator, IMapper mapper)
+            INotificator notificator, IMapper mapper) : base(notificator)
         {
             this.supplierService = supplierService;
             this.notificator = notificator;
@@ -31,57 +31,34 @@ namespace ChallengeAutoGlass.Application.AppServices
 
             var suppliersDto = mapper.Map<IEnumerable<SupplierDto>>(suppliers);
 
-            return new BaseResponse
-            {
-                IsSuccess = !notificator.IsHaveNotifications(),
-                StatusCode = notificator.IsHaveNotifications() ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
-                Errors = notificator.GetNotifications().Select(m => m.Message).ToList(),
-                Result = suppliersDto
-            };
+            return CreateResponseResultByStatusCode(HttpStatusCode.OK, suppliersDto);
+
         }
 
         public async Task<BaseResponse> Add(AddSupplierDto supplier)
         {
             var supplierEntity = mapper.Map<Supplier>(supplier);
 
-            var isSuccessProcess = await supplierService.Add(supplierEntity);
+            await supplierService.Add(supplierEntity);
 
-            return new BaseResponse
-            {
-                IsSuccess = isSuccessProcess,
-                StatusCode = !isSuccessProcess ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
-                Errors = notificator.GetNotifications().Select(m => m.Message).ToList(),
-                Result = supplier
-            };
+            return CreateResponseResultByStatusCode(HttpStatusCode.Created, supplier);
+
         }
 
         public async Task<BaseResponse> Update(string document, UpdateSupplierDto supplier)
         {
             var supplierEntity = mapper.Map<Supplier>(supplier);
 
-            var isSuccessProcess = await supplierService.Update(document, supplierEntity);
+            await supplierService.Update(document, supplierEntity);
 
-            return new BaseResponse
-            {
-                IsSuccess = isSuccessProcess,
-                StatusCode = !isSuccessProcess ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
-                Errors = notificator.GetNotifications().Select(m => m.Message).ToList(),
-                Result = supplier
-
-            };
+            return CreateResponseResultByStatusCode(HttpStatusCode.NoContent, supplier);
         }
 
         public async Task<BaseResponse> Remove(string document)
         {
-            var isSuccessProcess = await supplierService.Remove(document);
+            await supplierService.Remove(document);
 
-            return new BaseResponse
-            {
-                IsSuccess = isSuccessProcess,
-                StatusCode = !isSuccessProcess ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
-                Errors = notificator.GetNotifications().Select(m => m.Message).ToList()
-
-            };
+            return CreateResponseResultByStatusCode(HttpStatusCode.OK, document);
         }
 
     }

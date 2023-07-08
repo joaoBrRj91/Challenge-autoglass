@@ -29,7 +29,6 @@ namespace ChallengeAutoGlass.Application.AppServices
             var products = await productService.GetAll(pagination);
 
             var productsDto = mapper.Map<IEnumerable<ProductDto>>(products);
-            
 
             return CreateResponseResultByStatusCode(HttpStatusCode.OK, productsDto);
         }

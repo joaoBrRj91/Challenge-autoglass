@@ -34,7 +34,7 @@ namespace ClallangeAutoGlass.Business.Implementations.Services
         {
             if (!RunValidation(new SupplierValidation(), supplier)) return false;
 
-            var documentExists = await supplierRepository.IsHaveSupplierWithDocument(supplier.Document);
+            var documentExists = await supplierRepository.IsHaveSupplierWithDocument(supplier.Document!);
 
             if(documentExists)
             {
