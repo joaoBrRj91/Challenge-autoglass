@@ -1,13 +1,8 @@
 ﻿using System;
 namespace ChallengeAutoGlass.Application.Dtos
 {
-	public class ProductsDto
+	public class ProductGetAllDto
 	{
-        public ProductsDto()
-        {
-            Supplier = new SuppliersDto();
-        }
-
         public string Sku { get; set; }
 
         public string Description { get; set; }
@@ -17,9 +12,6 @@ namespace ChallengeAutoGlass.Application.Dtos
         public DateTime FabricationDate { get; set; }
 
         public DateTime ExpirationDate { get; set; }
-
-        public SuppliersDto Supplier { get; set; }
-
     }
 }
 

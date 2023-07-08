@@ -1,5 +1,5 @@
 ﻿using System;
-using ChallengeAutoGlass.Application.Dtos.Creates;
+using ChallengeAutoGlass.Application.Dtos;
 using ChallengeAutoGlass.Application.Responses;
 using ClallangeAutoGlass.Business.Implementations.Paging;
 

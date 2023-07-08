@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ChallengeAutoGlass.Application.Dtos.Creates
+namespace ChallengeAutoGlass.Application.Dtos
 {
 	public class UpdateProductDto
     {

@@ -15,7 +15,8 @@
     <None Remove="Configurations\" />
     <None Remove="AppServices\Interfaces\" />
     <None Remove="Responses\" />
-    <None Remove="Dtos\Creates\" />
+    <None Remove="Dtos\CreateUpdateDtos\" />
+    <None Remove="Dtos\GetDtos\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AppServices\" />
@@ -23,7 +24,8 @@
     <Folder Include="Configurations\" />
     <Folder Include="AppServices\Interfaces\" />
     <Folder Include="Responses\" />
-    <Folder Include="Dtos\Creates\" />
+    <Folder Include="Dtos\CreateUpdateDtos\" />
+    <Folder Include="Dtos\GetDtos\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />

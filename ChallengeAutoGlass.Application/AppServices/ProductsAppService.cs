@@ -2,7 +2,6 @@
 using AutoMapper;
 using ChallengeAutoGlass.Application.AppServices.Interfaces;
 using ChallengeAutoGlass.Application.Dtos;
-using ChallengeAutoGlass.Application.Dtos.Creates;
 using ChallengeAutoGlass.Application.Responses;
 using ClallangeAutoGlass.Business.Entities;
 using ClallangeAutoGlass.Business.Implementations.Paging;
@@ -29,10 +28,7 @@ namespace ChallengeAutoGlass.Application.AppServices
         {
             var products = await productService.GetAll(pagination);
 
-            var productsDto = mapper.Map<IEnumerable<ProductsDto>>(products);
-
-            foreach (var productdto in productsDto)
-                productdto.Supplier.Products = new List<ProductsDto>();
+            var productsDto = mapper.Map<IEnumerable<ProductDto>>(products);
             
 
             return CreateResponseResultByStatusCode(HttpStatusCode.OK, productsDto);

@@ -3,7 +3,6 @@ using System.Net;
 using AutoMapper;
 using ChallengeAutoGlass.Application.AppServices.Interfaces;
 using ChallengeAutoGlass.Application.Dtos;
-using ChallengeAutoGlass.Application.Dtos.Creates;
 using ChallengeAutoGlass.Application.Responses;
 using ClallangeAutoGlass.Business.Entities;
 using ClallangeAutoGlass.Business.Implementations.Paging;
@@ -30,13 +29,7 @@ namespace ChallengeAutoGlass.Application.AppServices
         {
             var suppliers = await supplierService.GetAll(pagination);
 
-            var suppliersDto = mapper.Map<IEnumerable<SuppliersDto>>(suppliers);
-
-            suppliersDto.ToList().ForEach(s =>
-            {
-                var innerSupplierInProducts = s.Products.Select(s => s.Supplier).ToList();
-                innerSupplierInProducts = new List<SuppliersDto>();
-            }); 
+            var suppliersDto = mapper.Map<IEnumerable<SupplierDto>>(suppliers);
 
             return new BaseResponse
             {

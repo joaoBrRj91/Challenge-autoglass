@@ -1,7 +1,6 @@
 ﻿using System;
 using AutoMapper;
 using ChallengeAutoGlass.Application.Dtos;
-using ChallengeAutoGlass.Application.Dtos.Creates;
 using ClallangeAutoGlass.Business.Entities;
 
 namespace ChallengeAutoGlass.Application.Configurations
@@ -11,11 +10,12 @@ namespace ChallengeAutoGlass.Application.Configurations
         public AutoMapperConfig()
         {
 
-            CreateMap<Product, ProductsDto>().ReverseMap();
+            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, ProductGetAllDto>().ReverseMap();
             CreateMap<Product, AddProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();
 
-            CreateMap<Supplier, SuppliersDto>().ReverseMap();
+            CreateMap<Supplier, SupplierDto>().ReverseMap();
             CreateMap<Supplier, AddSupplierDto>().ReverseMap();
             CreateMap<Supplier, UpdateSupplierDto>().ReverseMap();
 
