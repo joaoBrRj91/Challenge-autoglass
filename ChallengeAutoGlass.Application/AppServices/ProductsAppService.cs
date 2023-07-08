@@ -11,14 +11,14 @@ using ClallangeAutoGlass.Business.Interfaces.Services;
 
 namespace ChallengeAutoGlass.Application.AppServices
 {
-    public class ProductsAppService : IProductAppService
+    public class ProductsAppService : BaseAppService, IProductAppService
     {
         private readonly IProductService productService;
         private readonly INotificator notificator;
         private readonly IMapper mapper;
 
         public ProductsAppService(IProductService productService,
-            INotificator notificator, IMapper mapper)
+            INotificator notificator, IMapper mapper) : base(notificator)
         {
             this.productService = productService;
             this.notificator = notificator;
@@ -31,57 +31,37 @@ namespace ChallengeAutoGlass.Application.AppServices
 
             var productsDto = mapper.Map<IEnumerable<ProductsDto>>(products);
 
-            return new BaseResponse
-            {
-                IsSuccess = !notificator.IsHaveNotifications(),
-                StatusCode = notificator.IsHaveNotifications() ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
-                Errors = notificator.GetNotifications().Select(m => m.Message).ToList(),
-                Result = productsDto
-            };
+            foreach (var productdto in productsDto)
+                productdto.Supplier.Products = new List<ProductsDto>();
+            
+
+            return CreateResponseResultByStatusCode(HttpStatusCode.OK, productsDto);
         }
 
         public async Task<BaseResponse> Add(AddProductDto product)
         {
             var productEntity = mapper.Map<Product>(product);
 
-            var isSuccessProcess = await productService.Add(productEntity);
+            await productService.Add(productEntity);
 
-            return new BaseResponse
-            {
-                IsSuccess = isSuccessProcess,
-                StatusCode = !isSuccessProcess ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
-                Errors = notificator.GetNotifications().Select(m => m.Message).ToList(),
-                Result = product
-            };
+            return CreateResponseResultByStatusCode(HttpStatusCode.Created, product);
         }
 
         public async Task<BaseResponse> Update(string sku, UpdateProductDto product)
         {
             var productEntity = mapper.Map<Product>(product);
 
-            var isSuccessProcess = await productService.Update(sku, productEntity);
+            await productService.Update(sku, productEntity);
 
-            return new BaseResponse
-            {
-                IsSuccess = isSuccessProcess,
-                StatusCode = !isSuccessProcess ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
-                Errors = notificator.GetNotifications().Select(m => m.Message).ToList(),
-                Result = product
-
-            };
+            return CreateResponseResultByStatusCode(HttpStatusCode.NoContent, product);
         }
 
         public async Task<BaseResponse> Remove(string sku)
         {
-            var isSuccessProcess = await productService.Remove(sku);
+            await productService.Remove(sku);
 
-            return new BaseResponse
-            {
-                IsSuccess = isSuccessProcess,
-                StatusCode = !isSuccessProcess ? HttpStatusCode.BadRequest : HttpStatusCode.OK,
-                Errors = notificator.GetNotifications().Select(m => m.Message).ToList()
+            return CreateResponseResultByStatusCode(HttpStatusCode.OK, sku);
 
-            };
         }
     }
 }

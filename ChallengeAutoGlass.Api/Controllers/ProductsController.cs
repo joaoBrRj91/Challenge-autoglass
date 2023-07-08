@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ChallengeAutoGlass.Api.Controllers
 {
     [Route("api/products")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : MainController
     {
         private readonly IProductAppService productAppService;
 
@@ -18,22 +18,26 @@ namespace ChallengeAutoGlass.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<BaseResponse> GetAll([FromQuery] Pagination pagination)
-            => await productAppService.GetAll(pagination);
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+        public async Task<ActionResult<BaseResponse>> GetAll([FromQuery] Pagination pagination)
+            => CustomActionResult(await productAppService.GetAll(pagination));
 
         [HttpPost]
-        public async Task<BaseResponse> Create(AddProductDto addProductDto)
-            => await productAppService.Add(addProductDto);
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
+        public async Task<ActionResult<BaseResponse>> Create(AddProductDto addProductDto)
+            => CustomActionResult(await productAppService.Add(addProductDto));
 
         [HttpPut]
         [Route("{sku}")]
-        public async Task<BaseResponse> Update([FromRoute] string sku, UpdateProductDto UpdateProductDto)
-           => await productAppService.Update(sku, UpdateProductDto);
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Update))]
+        public async Task<ActionResult<BaseResponse>> Update([FromRoute] string sku, UpdateProductDto UpdateProductDto)
+           => CustomActionResult(await productAppService.Update(sku, UpdateProductDto));
 
-        [HttpPatch]
-        [Route("disable/{sku}")]
-        public async Task<BaseResponse> RemoveLogical([FromRoute]string sku)
-           => await productAppService.Remove(sku);
+        [HttpDelete]
+        [Route("{sku}")]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Delete))]
+        public async Task<ActionResult<BaseResponse>> RemoveLogical([FromRoute]string sku)
+           => CustomActionResult(await productAppService.Remove(sku));
     }
 }
 

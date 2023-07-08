@@ -15,12 +15,12 @@ namespace ChallengeAutoGlass.Infra.Data.Repositories
 
         public async Task<List<Supplier>> GetAllWithProducts(Pagination? pagination = null)
         {
-            var queryable = CustomDbContext.Suppliers.AsNoTracking();
+            IQueryable<Supplier>? queryable = null;
 
             if (pagination is not null)
-                queryable.Skip(pagination.PageSize * (pagination.PageNumber - 1)).Take(pagination.PageSize);
+                queryable = CustomDbContext.Suppliers.Skip(pagination.PageSize * (pagination.PageNumber - 1)).Take(pagination.PageSize);
 
-            return await queryable
+            return await queryable!
                 .Where(p => p.Status == true)
                 .Include(s => s.Products)
                 .ToListAsync();

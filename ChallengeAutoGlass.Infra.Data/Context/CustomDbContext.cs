@@ -6,7 +6,10 @@ namespace ChallengeAutoGlass.Infra.Data.Context
 {
 	public class CustomDbContext : DbContext
     {
-		public CustomDbContext(DbContextOptions options) : base(options) { }
+		public CustomDbContext(DbContextOptions options) : base(options)
+        {
+            ChangeTracker.LazyLoadingEnabled = false;
+        }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }

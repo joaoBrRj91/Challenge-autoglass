@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ChallengeAutoGlass.Api.Controllers
 {
     [Route("api/suppliers")]
-    public class SuppliersController : ControllerBase
+    public class SuppliersController : MainController
     {
         private readonly ISupplierAppService supplierAppService;
 
@@ -18,22 +18,26 @@ namespace ChallengeAutoGlass.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<BaseResponse> GetAll([FromQuery] Pagination pagination)
-            => await supplierAppService.GetAll(pagination);
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
+        public async Task<ActionResult<BaseResponse>> GetAll([FromQuery] Pagination pagination)
+            => CustomActionResult(await supplierAppService.GetAll(pagination));
 
         [HttpPost]
-        public async Task<BaseResponse> Create(AddSupplierDto addSupplierDto)
-            => await supplierAppService.Add(addSupplierDto);
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
+        public async Task<ActionResult<BaseResponse>> Create(AddSupplierDto addSupplierDto)
+            => CustomActionResult(await supplierAppService.Add(addSupplierDto));
 
         [HttpPut]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Update))]
         [Route("{document}")]
-        public async Task<BaseResponse> Update([FromRoute] string document,UpdateSupplierDto updateSupplierDto)
-           => await supplierAppService.Update(document, updateSupplierDto);
+        public async Task<ActionResult<BaseResponse>> Update([FromRoute] string document,UpdateSupplierDto updateSupplierDto)
+           => CustomActionResult(await supplierAppService.Update(document, updateSupplierDto));
 
-        [HttpPatch]
-        [Route("disable/{document}")]
-        public async Task<BaseResponse> RemoveLogical([FromRoute]string document)
-           => await supplierAppService.Remove(document);
+        [HttpDelete]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Delete))]
+        [Route("{document}")]
+        public async Task<ActionResult<BaseResponse>> RemoveLogical([FromRoute]string document)
+           => CustomActionResult(await supplierAppService.Remove(document));
     }
 }
 

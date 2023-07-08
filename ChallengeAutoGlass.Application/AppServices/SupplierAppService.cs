@@ -32,6 +32,12 @@ namespace ChallengeAutoGlass.Application.AppServices
 
             var suppliersDto = mapper.Map<IEnumerable<SuppliersDto>>(suppliers);
 
+            suppliersDto.ToList().ForEach(s =>
+            {
+                var innerSupplierInProducts = s.Products.Select(s => s.Supplier).ToList();
+                innerSupplierInProducts = new List<SuppliersDto>();
+            }); 
+
             return new BaseResponse
             {
                 IsSuccess = !notificator.IsHaveNotifications(),
@@ -60,7 +66,7 @@ namespace ChallengeAutoGlass.Application.AppServices
         {
             var supplierEntity = mapper.Map<Supplier>(supplier);
 
-            var isSuccessProcess = await supplierService.Update(document,supplierEntity);
+            var isSuccessProcess = await supplierService.Update(document, supplierEntity);
 
             return new BaseResponse
             {
